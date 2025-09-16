@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Coffee Shop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+      padding: 50px;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      width: 350px;
+      margin: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
+    }
+    .bg-img img {
+      position: fixed;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    h2 {
+      text-align: center;
+      color: #4B2E2E;
+    }
+    label {
+      margin-top: 10px;
+      display: block;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    #price {
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #3a2e2e;
+    }
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background-color: #4B2E2E;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      background: #f8f8f8;
+      padding: 15px;
+      border-radius: 6px;
+    }
+    .img-fluid {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-img">
+    <div class="col-md-12">
+      <img src="pics/coffee 1.jpg" alt="coffee" class="img-fluid" >
+    </div>
+  <div class="container">
+    <div class="row">
+    <div class="col-md-12">
+    <h2>☕ Coffee Shop Order</h2>
+    <form id="orderForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" placeholder="Enter your name" required>
+
+      <label for="order">Order Number:</label>
+      <input type="text" id="order" placeholder="Enter order number" required>
+
+      <label for="coffeeSelect">Choose your coffee:</label>
+      <select id="coffeeSelect" onchange="updatePrice()" required>
+        <option value="" disabled selected>Select coffee</option>
+        <option value="3.5">Espresso - $3.50</option>
+        <option value="4.0">Cappuccino - $4.00</option>
+        <option value="4.5">Latte - $4.50</option>
+        <option value="5.0">Mocha - $5.00</option>
+      </select>
+
+      <div id="price">Price: $0.00</div>
+
+      <label for="msg">Add something to your order:</label>
+      <input type="text" id="msg" placeholder="E.g., extra sugar, no foam">
+
+      <button type="button" onclick="handleSubmit()">Submit</button>
+    </form>
+  </div>
+
+    <div class="result">
+      <h3 id="s1"></h3>
+      <p id="s2"></p>
+    </div>
+  </div>
+
+  <script>
+    function updatePrice() {
+      var select = document.getElementById("coffeeSelect");
+      var price = select.value;
+      document.getElementById("price").textContent = `Price: $${parseFloat(price).toFixed(2)}`;
+    }
+
+    function handleSubmit() {
+      var name = document.getElementById("name").value;
+      var order = document.getElementById("order").value;
+      var select = document.getElementById("coffeeSelect");
+      var coffee = select.options[select.selectedIndex].text;
+      var msg = document.getElementById("msg").value;
+
+      document.getElementById("s1").innerText = `Thank you, ${name}!`;
+      document.getElementById("s2").innerHTML = `
+        Order No: ${order}<br>
+        Coffee: ${coffee}<br>
+        Message: ${msg}
+      `;
+    }
+  </script>
+
+</body>
+</html>
